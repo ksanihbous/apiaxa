@@ -25,6 +25,11 @@ app.secret_key = b'BB,^z\x90\x88?\xcf\xbb'
 #ALLOWED_EXTENSION = set(['png', 'jpeg', 'jpg'])
 #app.config['Layer_Folder'] = 'layer'
 
+def getStr(string,start,end, index = 1):
+    str = string.split(start)
+    str = str[index].split(end)
+    return str[0]
+
 def convert_size(size_bytes):
 	if size_bytes == 0:
 		return '0B'
