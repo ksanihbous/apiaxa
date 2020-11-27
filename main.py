@@ -148,7 +148,7 @@ def smss():
                     'pesan': pes,
                     'captcha': captchaBypass,
                     'key': key
-                    }
+                }
                 result = session.post('http://alpha.payuterus.biz/send.php', headers=headers, data=data, verify=False)
                 if "SMS Gratis Telah Dikirim" in result.text:
                     result = {
@@ -166,9 +166,9 @@ def smss():
                         "result": {
                             "status": "200",
                             "respon": "Tolong menunggu selama 20 menit untuk mengirim pesan"
-                            }
                         }
-                 else:
+                    }
+                else:
                     result = {
                         "creator":"Asa Xyz",
                         "result": {
