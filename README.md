@@ -1,4 +1,4 @@
-#  MhankBarBar-Api
+#  Axa-Api
 
 # Example
-• [Click here](https://mhankbarbar.herokuapp.com/api)
+• [Click here](https://apiaxa.herokuapp.com/api)
