@@ -114,13 +114,13 @@ def spamgimel():
         }
 
 @app.route('/api/smss', methods=['GET','POST'])
-def sms():
+def smss():
 	if request.args.get('no'):
 		if request.args.get('pesan'):
 			nom = request.args.get('no')
 			pes = request.args.get('pes')
-    		if len(pesan) < 15:
-       			pesan = pesan + (" " * random.randint(15,21))
+    		if len(pes) < 15:
+       			pes = pes + (" " * random.randint(15,21))
 				session = requests.Session()
 				headers = {
 					'Host': 'alpha.payuterus.biz',
