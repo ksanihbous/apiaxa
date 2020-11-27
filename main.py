@@ -138,45 +138,45 @@ def smss():
                     'referer': 'https://alpha.payuterus.biz/index.php?a=keluar',
                     'accept-encoding': 'gzip, deflate',
                     'accept-language': 'en-US,en;q=0.9',
+                }
+                response = session.get('http://alpha.payuterus.biz/index.php', headers=headers, verify=False)
+                key = getStr(response.text, 'name="key" value="', '">')
+                captcha = getStr(response.text, '<span>', ' = </span>').replace(" ", "").split("+")
+                captchaBypass = int(captcha[0]) + int(captcha[1])
+                data = {
+                    'nohp': nom,
+                    'pesan': pes,
+                    'captcha': captchaBypass,
+                    'key': key
                     }
-                    response = session.get('http://alpha.payuterus.biz/index.php', headers=headers, verify=False)
-                    key = getStr(response.text, 'name="key" value="', '">')
-                    captcha = getStr(response.text, '<span>', ' = </span>').replace(" ", "").split("+")
-                    captchaBypass = int(captcha[0]) + int(captcha[1])
-                    data = {
-                        'nohp': nom,
-                        'pesan': pes,
-                        'captcha': captchaBypass,
-                        'key': key
+                result = session.post('http://alpha.payuterus.biz/send.php', headers=headers, data=data, verify=False)
+                if "SMS Gratis Telah Dikirim" in result.text:
+                    result = {
+                        "creator":"Asa Xyz",
+                        "result": {
+                            "status": "200",
+                            "respon": "Sukses mengirim pesan anda",
+                            "nomor_tujuan": "{}".format(nom),
+                            "pesan_tujuan": "{}".format(pes)
                         }
-                    result = session.post('http://alpha.payuterus.biz/send.php', headers=headers, data=data, verify=False)
-                    if "SMS Gratis Telah Dikirim" in result.text:
-                        result = {
-                            "creator":"Asa Xyz",
-                            "result": {
-                                "status": "200",
-                                "respon": "Sukses mengirim pesan anda",
-                                "nomor_tujuan": "{}".format(nom),
-                                "pesan_tujuan": "{}".format(pes)
+                    }
+                elif "Mohon Tunggu 15 Menit Lagi Untuk Pengiriman Pesan Yang Sama" in result.text:
+                    result = {
+                        "creator":"Asa Xyz",
+                        "result": {
+                            "status": "200",
+                            "respon": "Tolong menunggu selama 20 menit untuk mengirim pesan"
                             }
                         }
-                    elif "Mohon Tunggu 15 Menit Lagi Untuk Pengiriman Pesan Yang Sama" in result.text:
-                        result = {
-                            "creator":"Asa Xyz",
-                            "result": {
-                                "status": "200",
-                                "respon": "Tolong menunggu selama 20 menit untuk mengirim pesan"
-                                }
-                            }
-                    else:
-                        result = {
-                            "creator":"Asa Xyz",
-                            "result": {
-                                "status": "404",
-                                "respon": "Beritahu owner untuk memperbaiki API ini"
-                            }
+                 else:
+                    result = {
+                        "creator":"Asa Xyz",
+                        "result": {
+                            "status": "404",
+                            "respon": "Beritahu owner untuk memperbaiki API ini"
                         }
-                    return(result)
+                    }
+                return(result)
 
 @app.route('/api/spamcall', methods=['GET','POST'])
 def spamcall():
