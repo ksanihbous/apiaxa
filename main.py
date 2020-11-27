@@ -113,6 +113,71 @@ def spamgimel():
             'msg': 'Masukkan parameter target'
         }
 
+@app.route('/api/smss', methods=['GET','POST'])
+def sms():
+	if request.args.get('no'):
+		if request.args.get('pesan'):
+			nom = request.args.get('no')
+			pes = request.args.get('pes')
+    		if len(pesan) < 15:
+       			pesan = pesan + (" " * random.randint(15,21))
+				session = requests.Session()
+				headers = {
+					'Host': 'alpha.payuterus.biz',
+					'cache-control': 'max-age=0',
+					'upgrade-insecure-requests': '1',
+					'origin': 'https://alpha.payuterus.biz',
+					'content-type': 'application/x-www-form-urlencoded',
+					'user-agent': 'Mozilla/5.0 (Linux; Android 9; LM-G710 Build/PKQ1.181105.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/81.0.4044.138 Mobile Safari/537.36',
+					'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,/;q=0.8,application/signed-exchange;v=b3;q=0.9',
+					'x-requested-with': 'com.smsGratisSeluruhIndonesia64',
+					'sec-fetch-site': 'same-origin',
+					'sec-fetch-mode': 'navigate',
+					'sec-fetch-user': '?1',
+					'sec-fetch-dest': 'document',
+					'referer': 'https://alpha.payuterus.biz/index.php?a=keluar',
+					'accept-encoding': 'gzip, deflate',
+					'accept-language': 'en-US,en;q=0.9',
+					}
+					response = session.get('http://alpha.payuterus.biz/index.php', headers=headers, verify=False)
+					key = getStr(response.text, 'name="key" value="', '">')
+					captcha = getStr(response.text, '<span>', ' = </span>').replace(" ", "").split("+")
+					captchaBypass = int(captcha[0]) + int(captcha[1])
+					data = {
+						'nohp': nom,
+						'pesan': pes,
+						'captcha': captchaBypass,
+						'key': key
+						}
+					result = session.post('http://alpha.payuterus.biz/send.php', headers=headers, data=data, verify=False)
+					if "SMS Gratis Telah Dikirim" in result.text:
+						result = {
+							"creator":"Asa Xyz",
+							"result": {
+								"status": "200",
+								"respon": "Sukses mengirim pesan anda",
+								"nomor_tujuan": "{}".format(nom),
+								"pesan_tujuan": "{}".format(pes)
+							}
+						}
+					elif "Mohon Tunggu 15 Menit Lagi Untuk Pengiriman Pesan Yang Sama" in result.text:
+						result = {
+							"creator":"Asa Xyz",
+							"result": {
+								"status": "200",
+								"respon": "Tolong menunggu selama 20 menit untuk mengirim pesan"
+								}
+							}
+					else:
+						result = {
+							"creator":"Asa Xyz",
+							"result": {
+								"status": "404",
+								"respon": "Beritahu owner untuk memperbaiki API ini"
+							}
+						}
+					return(result)
+
 @app.route('/api/spamcall', methods=['GET','POST'])
 def spamcall():
     if request.args.get('no'):
