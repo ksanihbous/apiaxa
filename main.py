@@ -118,7 +118,7 @@ def smss():
     if request.args.get('no'):
         if request.args.get('pesan'):
             nom = request.args.get('no')
-            pes = request.args.get('pes')
+            pes = request.args.get('pesan')
             if len(pes) < 15:
                 pes = pes + (" " * random.randint(15,21))
                 session = requests.Session()
