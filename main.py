@@ -9,9 +9,11 @@ from lib.nulis import *
 from urllib.parse import *
 from flask import *
 #from werkzeug.utils import *
+import requests, re, json , random , urllib
 from bs4 import BeautifulSoup as bs
 from requests import get, post
 import os, math, json, random, re, html_text, pytesseract, base64, time, smtplib
+_session = requests.session()
 
 ua_ig = 'Mozilla/5.0 (Linux; Android 9; SM-A102U Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/74.0.3729.136 Mobile Safari/537.36 Instagram 155.0.0.37.107 Android (28/9; 320dpi; 720x1468; samsung; SM-A102U; a10e; exynos7885; en_US; 239490550)'
 
