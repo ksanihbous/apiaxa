@@ -558,8 +558,8 @@ def cuaca():
 		try:
 			q = request.args.get('q')
 			print(q)
-			url = f'https://rest.farzain.com/api/cuaca.php?id={q}&apikey='
-			weather = get(f'{url}{apiKey}').json()
+			url = f'https://rest.farzain.com/api/cuaca.php?id={q}&apikey=nda12345'
+			weather = get(f'{url}').json()
 			print(weather)
 			if weather['respon']['deskripsi'] == 'null' or weather['respon']['deskripsi'] == None:
 				return {
